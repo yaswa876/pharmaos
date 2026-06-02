@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-import io
 
 st.set_page_config(
 page_title="PharmaOS",
@@ -35,10 +34,9 @@ h1,h2,h3{
 # ---------------------------
 
 def detect_type(col):
-
-```
 c = col.lower()
 
+```
 if "drug" in c:
     return "Drug"
 
@@ -70,9 +68,7 @@ return "Generic"
 # ---------------------------
 
 st.title("🧬 PharmaOS")
-st.caption(
-"AI-Powered Drug Intelligence Platform"
-)
+st.caption("AI-Powered Drug Intelligence Platform")
 
 # ---------------------------
 
@@ -82,13 +78,11 @@ st.caption(
 
 uploaded_file = st.sidebar.file_uploader(
 "Upload Dataset",
-type=["csv","xlsx"]
+type=["csv", "xlsx"]
 )
 
 if uploaded_file is None:
-st.info(
-"Upload a CSV or Excel file to begin analysis."
-)
+st.info("Upload a CSV or Excel file to begin analysis.")
 st.stop()
 
 # ---------------------------
@@ -110,22 +104,11 @@ df = pd.read_excel(uploaded_file)
 
 st.header("Dataset Overview")
 
-c1,c2,c3 = st.columns(3)
+c1, c2, c3 = st.columns(3)
 
-c1.metric(
-"Rows",
-len(df)
-)
-
-c2.metric(
-"Columns",
-len(df.columns)
-)
-
-c3.metric(
-"Missing Values",
-int(df.isnull().sum().sum())
-)
+c1.metric("Rows", len(df))
+c2.metric("Columns", len(df.columns))
+c3.metric("Missing Values", int(df.isnull().sum().sum()))
 
 st.dataframe(df.head())
 
@@ -139,8 +122,7 @@ st.header("Detected Biomedical Entities")
 
 entity_df = pd.DataFrame({
 "Column": df.columns,
-"Detected Type":
-[detect_type(c) for c in df.columns]
+"Detected Type": [detect_type(c) for c in df.columns]
 })
 
 st.dataframe(entity_df)
@@ -170,7 +152,7 @@ st.header("Visualization")
 
 numeric_cols = list(
 df.select_dtypes(
-include=["int64","float64"]
+include=["int64", "float64"]
 ).columns
 )
 
@@ -296,7 +278,6 @@ elif "describe" in q:
     matched = None
 
     for col in df.columns:
-
         if col.lower() in q:
             matched = col
             break
@@ -313,7 +294,7 @@ elif "describe" in q:
 elif "highest" in q:
 
     nums = df.select_dtypes(
-        include=["int64","float64"]
+        include=["int64", "float64"]
     )
 
     if len(nums.columns) > 0:
