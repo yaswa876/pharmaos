@@ -59,8 +59,6 @@ if "os" in c:
     return "Clinical Outcome"
 
 return "Generic"
-```
-
 # ---------------------------
 
 # HEADER
